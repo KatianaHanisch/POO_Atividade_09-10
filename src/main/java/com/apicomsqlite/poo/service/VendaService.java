@@ -1,14 +1,20 @@
 package com.apicomsqlite.poo.service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.apicomsqlite.poo.enity.Estoque;
 import com.apicomsqlite.poo.enity.Venda;
+import com.apicomsqlite.poo.enity.VendaDTO;
 import com.apicomsqlite.poo.repository.EstoqueRepository;
 import com.apicomsqlite.poo.repository.VendaRepository;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.persistence.TypedQuery;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -18,6 +24,8 @@ public class VendaService {
     private VendaRepository vendaRepository;
     @Autowired(required = false)
     private EstoqueRepository estoqueRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Transactional
     // public String createVenda(Venda venda) {
@@ -73,8 +81,28 @@ public class VendaService {
         }
     }
 
-    public List<Venda> readVendas() {
-        return vendaRepository.findAll();
+    public List<VendaDTO> readVenda() {
+        String jpqlQuery = "SELECT c.nome AS nomeCliente, v.idProduto, p.nomeProduto AS nomeProduto, v.quantidade, p.valorProduto, v.valorDesconto "
+                +
+                "FROM Venda v " +
+                "JOIN Cliente c ON v.idCliente = c.id " +
+                "JOIN Produto p ON v.idProduto = p.id";
+
+        TypedQuery<Object[]> query = entityManager.createQuery(jpqlQuery, Object[].class);
+
+        List<VendaDTO> resultados = query.getResultList().stream()
+                .map(result -> {
+                    String nomeCliente = (String) result[0];
+                    String nomeProduto = (String) result[2];
+                    Integer quantidade = (Integer) result[3];
+                    double valorProduto = (double) result[4];
+                    double valorDesconto = (double) result[5];
+                    double totalVenda = (valorProduto * quantidade) - valorDesconto;
+                    return new VendaDTO(nomeCliente, nomeProduto, quantidade, totalVenda, valorDesconto);
+                })
+                .collect(Collectors.toList());
+
+        return resultados;
     }
 
     @Transactional

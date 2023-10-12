@@ -4,6 +4,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.apicomsqlite.poo.enity.Venda;
+import com.apicomsqlite.poo.enity.VendaDTO;
 import com.apicomsqlite.poo.service.VendaService;
 
 @RestController
@@ -22,9 +23,9 @@ public class VendaController {
         return vendaService.createVenda(venda);
     }
 
-    @RequestMapping(value = "readVendas", method = RequestMethod.GET)
-    public List<Venda> readVendas() {
-        return vendaService.readVendas();
+    @RequestMapping(value = "readVenda", method = RequestMethod.GET)
+    public List<VendaDTO> readVendas() {
+        return vendaService.readVenda();
     }
 
     @RequestMapping(value = "updateVenda", method = RequestMethod.PUT)
