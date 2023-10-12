@@ -29,7 +29,7 @@ public class ProdutoService {
         }
     }
 
-    public List<Produto> readProdutos() {
+    public List<Produto> readProduto() {
         return produtoRepository.findAll();
     }
 

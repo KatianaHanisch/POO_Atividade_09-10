@@ -22,9 +22,9 @@ public class ProdutoController {
         return produtoService.createProduto(produto);
     }
 
-    @RequestMapping(value = "readProdutos", method = RequestMethod.GET)
+    @RequestMapping(value = "readProduto", method = RequestMethod.GET)
     public List<Produto> readProdutos() {
-        return produtoService.readProdutos();
+        return produtoService.readProduto();
     }
 
     @RequestMapping(value = "updateProduto", method = RequestMethod.PUT)
