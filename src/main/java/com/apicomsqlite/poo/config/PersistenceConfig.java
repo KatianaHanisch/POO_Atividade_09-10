@@ -24,7 +24,7 @@ public class PersistenceConfig {
         final DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.sqlite.JDBC");
         dataSource.setUrl(
-                "jdbc:sqlite:C:\\POO\\POO\\src\\main\\java\\com\\apicomsqlite\\poo\\db\\data.db");
+                "jdbc:sqlite:C:\\POO\\POO-main\\src\\main\\java\\com\\apicomsqlite\\poo\\db\\data.db");
         dataSource.setUsername("");
         dataSource.setPassword("");
 

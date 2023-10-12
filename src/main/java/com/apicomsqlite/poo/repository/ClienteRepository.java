@@ -15,6 +15,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
 
     public List<Cliente> findByNome(String nome);
 
-    @Query("select max(s.id) from Pessoa s")
+    @Query("select max(s.id) from Cliente s")
     public Integer findMaxId();
 }
