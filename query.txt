@@ -1,0 +1,27 @@
+SELECT
+    C.id,
+    Cliente.nomePessoa as Cliente,
+    Vendedor.nomePessoa as Vendedor,
+    P.nomeProduto as Produto,
+    P.valorProduto,
+    C.quantidade,
+    C.moeda,
+    C.tipoContrato,
+    C.formaPagamento,
+    CASE WHEN C.contratoPago = 1 THEN 'true' ELSE 'false' END as ContratoPago,
+    Total.valorTotal
+FROM "Pessoa" as Cliente
+INNER JOIN "Contrato" as C
+    ON C.idCliente = Cliente.id
+INNER JOIN "Pessoa" as Vendedor
+    ON C.idVendedor = Vendedor.id
+INNER JOIN "Produto" as P
+    ON C.idProduto = P.id
+LEFT JOIN (
+    SELECT Contrato.id, SUM(Produto.valorProduto * Contrato.quantidade) as valorTotal
+    FROM "Contrato"
+    INNER JOIN "Produto"
+    ON Contrato.idProduto = Produto.id
+    GROUP BY Contrato.id
+) as Total
+ON C.id = Total.id;
