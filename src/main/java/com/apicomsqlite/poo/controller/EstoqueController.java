@@ -22,9 +22,9 @@ public class EstoqueController {
         return estoqueService.createEstoque(estoque);
     }
 
-    @RequestMapping(value = "readEstoques", method = RequestMethod.GET)
-    public List<Estoque> readEstoques() {
-        return estoqueService.readEstoques();
+    @RequestMapping(value = "readEstoque", method = RequestMethod.GET)
+    public List<Estoque> readEstoque() {
+        return estoqueService.readEstoque();
     }
 
     @RequestMapping(value = "updateEstoque", method = RequestMethod.PUT)

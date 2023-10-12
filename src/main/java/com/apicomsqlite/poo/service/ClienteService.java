@@ -29,7 +29,7 @@ public class ClienteService {
         }
     }
 
-    public List<Cliente> readClientes() {
+    public List<Cliente> readCliente() {
         return clienteRepository.findAll();
     }
 

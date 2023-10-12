@@ -22,9 +22,9 @@ public class ClienteController {
         return clienteService.createCliente(pessoa);
     }
 
-    @RequestMapping(value = "readClientes", method = RequestMethod.GET)
-    public List<Cliente> readClientes() {
-        return clienteService.readClientes();
+    @RequestMapping(value = "readCliente", method = RequestMethod.GET)
+    public List<Cliente> readCliente() {
+        return clienteService.readCliente();
     }
 
     @RequestMapping(value = "updateCliente", method = RequestMethod.PUT)

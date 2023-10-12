@@ -29,7 +29,7 @@ public class EstoqueService {
         }
     }
 
-    public List<Estoque> readEstoques() {
+    public List<Estoque> readEstoque() {
         return estoqueRepository.findAll();
     }
 
