@@ -11,7 +11,6 @@ public class VendaDTO {
     private double valorDesconto;
 
     public VendaDTO() {
-        // Construtor padrão vazio
     }
 
     public VendaDTO(String nomeCliente, String nomeProduto, Integer quantidade, double totalVenda,
@@ -23,5 +22,4 @@ public class VendaDTO {
         this.valorDesconto = valorDesconto;
     }
 
-    // Getters e setters
 }
