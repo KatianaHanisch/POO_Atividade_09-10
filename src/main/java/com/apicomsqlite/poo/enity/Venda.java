@@ -72,7 +72,7 @@ public class Venda {
 
     @Override
     public String toString() {
-        return "Contrato{" +
+        return "Venda{" +
                 "id=" + id +
                 ", idCliente='" + idCliente + '\'' +
                 ", idProduto='" + idProduto + '\'' +
