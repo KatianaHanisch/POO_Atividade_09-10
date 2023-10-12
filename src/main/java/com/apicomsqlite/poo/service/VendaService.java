@@ -28,20 +28,6 @@ public class VendaService {
     private EntityManager entityManager;
 
     @Transactional
-    // public String createVenda(Venda venda) {
-    // try {
-    // if (!vendaRepository.existsById(venda.getId())) {
-    // venda.setId(null == vendaRepository.findMaxId() ? 1 :
-    // vendaRepository.findMaxId() + 1);
-    // vendaRepository.save(venda);
-    // return "venda cadastrado com sucesso.";
-    // } else {
-    // return "venda já existe no banco.";
-    // }
-    // } catch (Exception e) {
-    // throw e;
-    // }
-    // }
 
     public String createVenda(Venda venda) {
         try {
@@ -82,7 +68,7 @@ public class VendaService {
     }
 
     public List<VendaDTO> readVenda() {
-        String jpqlQuery = "SELECT c.nome AS nomeCliente, v.idProduto, p.nomeProduto AS nomeProduto, v.quantidade, p.valorProduto, v.valorDesconto "
+        String jpqlQuery = "SELECT c.nome AS nomeCliente, c.cpf AS cpfCliente, v.idProduto, p.nomeProduto AS nomeProduto, p.unidadeDeMedida, p.valorProduto AS valorProduto, v.quantidade, v.valorDesconto "
                 +
                 "FROM Venda v " +
                 "JOIN Cliente c ON v.idCliente = c.id " +
@@ -93,12 +79,15 @@ public class VendaService {
         List<VendaDTO> resultados = query.getResultList().stream()
                 .map(result -> {
                     String nomeCliente = (String) result[0];
-                    String nomeProduto = (String) result[2];
-                    Integer quantidade = (Integer) result[3];
-                    double valorProduto = (double) result[4];
-                    double valorDesconto = (double) result[5];
+                    String cpfCliente = (String) result[1];
+                    String nomeProduto = (String) result[3];
+                    String unidadeDeMedida = (String) result[4];
+                    double valorProduto = (double) result[5];
+                    Integer quantidade = (Integer) result[6];
+                    double valorDesconto = (double) result[7];
                     double totalVenda = (valorProduto * quantidade) - valorDesconto;
-                    return new VendaDTO(nomeCliente, nomeProduto, quantidade, totalVenda, valorDesconto);
+                    return new VendaDTO(nomeCliente, cpfCliente, nomeProduto, unidadeDeMedida, quantidade, totalVenda,
+                            valorDesconto, valorProduto);
                 })
                 .collect(Collectors.toList());
 
